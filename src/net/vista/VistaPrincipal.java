@@ -13,7 +13,10 @@ import net.controladores.VistaController;
 public class VistaPrincipal extends javax.swing.JFrame {
 
     private VistaController vistaController;
-    private VistaCliente vistaCliente;
+    
+    public void setVistaController(VistaController vistaController) {
+        this.vistaController = vistaController;
+    }
     
     /**
      * Creates new form VistaPrincipal
@@ -22,7 +25,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         initComponents();
         
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +43,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        lbl_alert = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnl_cliente = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -121,28 +125,34 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("M E C H");
 
+        lbl_alert.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lbl_alert.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_alert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jLabel2))
                     .addComponent(jLabel1)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnRepuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                        .addComponent(btnVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPersonal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnRepuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(btnVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPersonal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_alert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lbl_alert, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
@@ -168,23 +178,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnClientes.getAccessibleContext().setAccessibleName("btnClientes");
         btnClientes.getAccessibleContext().setAccessibleParent(btnClientes);
         jLabel2.getAccessibleContext().setAccessibleDescription("");
+        lbl_alert.getAccessibleContext().setAccessibleName("lbl_alert");
+        lbl_alert.getAccessibleContext().setAccessibleParent(lbl_alert);
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 510));
 
         pnl_cliente.setBackground(new java.awt.Color(255, 255, 255));
 
+        jTableCliente.setForeground(new java.awt.Color(0, 0, 0));
         jTableCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Id", "Nombre/Razon Social", "Tipo de Documento", "Numero de Documento", "Telefono", "Correo", "Direccion"
@@ -205,6 +209,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTableCliente);
         jTableCliente.getAccessibleContext().setAccessibleName("jTableCliente");
         jTableCliente.getAccessibleContext().setAccessibleParent(jTableCliente);
@@ -688,26 +693,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoClienteMouseClicked
-        if (vistaCliente == null) {
-            vistaCliente = new VistaCliente();
-        }
-
-        if (vistaController == null) {
-            vistaController = new VistaController(vistaCliente,this);
-        }
-        
         vistaController.CreateClienteView();
     }//GEN-LAST:event_btnNuevoClienteMouseClicked
 
     private void btnEditarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarClienteMouseClicked
-        if (vistaCliente == null) {
-            vistaCliente = new VistaCliente();
-        }
-
-        if (vistaController == null) {
-            vistaController = new VistaController(vistaCliente,this);
-        }
-        
         vistaController.UpdateClienteView();
     }//GEN-LAST:event_btnEditarClienteMouseClicked
 
@@ -757,6 +746,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTablePersonal;
     private javax.swing.JTable jTableRepuesto;
     private javax.swing.JTable jTableVehiculo;
+    public javax.swing.JLabel lbl_alert;
     private javax.swing.JPanel pnl_cliente;
     private javax.swing.JPanel pnl_personal;
     private javax.swing.JPanel pnl_repuestos;

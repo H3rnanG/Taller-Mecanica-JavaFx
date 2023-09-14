@@ -4,6 +4,8 @@
  */
 package net.vista;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.controladores.ClienteJpaController;
 import net.controladores.VistaController;
 import net.modelo.Cliente;
@@ -15,9 +17,24 @@ import net.modelo.Cliente;
 public class VistaCliente extends javax.swing.JFrame {
 
     private ClienteJpaController jpacontroller;
+    private VistaPrincipal vistaPrincipal;
+    private boolean editar;
+    private Cliente cliente;
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
     public void setController(ClienteJpaController jpacontroller) {
         this.jpacontroller = jpacontroller;
+    }
+
+    public void setVistaPrincipal(VistaPrincipal vistaPrincipal) {
+        this.vistaPrincipal = vistaPrincipal;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
     }
     
     /**
@@ -219,10 +236,41 @@ public class VistaCliente extends javax.swing.JFrame {
         String direccionCliente = this.txt_Direccion.getText();
         String telefonoCliente = this.txt_Telefono.getText();
         String correoCliente = this.txt_Correo.getText();
-        Cliente cliente = new Cliente(nombreRazonSocial, tipoDocumento, numeroDocumento, telefonoCliente, correoCliente, direccionCliente);
-        jpacontroller.create(cliente);
         
-        this.dispose();
+        cliente.setNombreRazonSocial(nombreRazonSocial);
+        cliente.setTipoDocumento(tipoDocumento);
+        cliente.setNumeroDocumento(numeroDocumento);
+        cliente.setDireccionCliente(direccionCliente);
+        cliente.setTelefonoCliente(telefonoCliente);
+        cliente.setCorreoCliente(correoCliente);
+        
+        if (editar) {
+            boolean rs = false;
+            try {
+                rs = jpacontroller.edit(cliente);
+            } catch (Exception ex) {
+                Logger.getLogger(VistaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (rs) {
+                vistaPrincipal.lbl_alert.setText("Cliente Actualizado");
+            } else {
+                vistaPrincipal.lbl_alert.setText("Error al Actualizar Cliente");
+            }
+            this.dispose();
+        } else {
+
+            cliente = new Cliente(nombreRazonSocial, tipoDocumento, numeroDocumento, telefonoCliente, correoCliente, direccionCliente);
+            boolean rs = jpacontroller.create(cliente);
+
+            if (rs) {
+                vistaPrincipal.lbl_alert.setText("Cliente Creado");
+            } else {
+                vistaPrincipal.lbl_alert.setText("Error al Crear Cliente");
+            }
+
+            this.dispose();
+        }
     }//GEN-LAST:event_btn_GuardarMouseClicked
 
     /**

@@ -30,36 +30,41 @@ public class ClienteJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Cliente cliente) {
+    public boolean create(Cliente cliente) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(cliente);
             em.getTransaction().commit();
-        } finally {
+            return true;
+        } catch (Exception ex){
+            ex.printStackTrace();
+            return false;
+        }finally {
             if (em != null) {
                 em.close();
             }
         }
     }
 
-    public void edit(Cliente cliente) throws NonexistentEntityException, Exception {
+    public boolean edit(Cliente cliente) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             cliente = em.merge(cliente);
             em.getTransaction().commit();
+            return true;
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 Integer id = cliente.getIdCliente();
                 if (findCliente(id) == null) {
-                    throw new NonexistentEntityException("The cliente with id " + id + " no longer exists.");
+                    return false;
                 }
             }
-            throw ex;
+            return false;
         } finally {
             if (em != null) {
                 em.close();
