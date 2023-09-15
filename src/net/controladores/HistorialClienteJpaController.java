@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import net.controlador.exceptions.NonexistentEntityException;
@@ -129,6 +130,20 @@ public class HistorialClienteJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List<HistorialCliente> findHistorialClienteByIdCliente(int idCliente) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<HistorialCliente> query = em.createQuery(
+                "SELECT hc FROM HistorialCliente hc WHERE hc.idCliente = :idCliente", 
+                HistorialCliente.class
+            );
+            query.setParameter("idCliente", idCliente);
+            return query.getResultList();
         } finally {
             em.close();
         }

@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>net.modelo.Cliente</class>
     <class>net.modelo.HistorialCliente</class>
+    <class>net.modelo.Personal</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/taller_mecanica?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

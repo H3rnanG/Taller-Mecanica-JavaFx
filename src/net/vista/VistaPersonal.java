@@ -4,12 +4,45 @@
  */
 package net.vista;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.controladores.PersonalJpaController;
+import net.controladores.VistaController;
+import net.modelo.Cliente;
+import net.modelo.Personal;
+
 /**
  *
  * @author user
  */
 public class VistaPersonal extends javax.swing.JFrame {
 
+    private VistaController vistaController;
+    private PersonalJpaController jpacontroller;
+    private VistaPrincipal vistaPrincipal;
+    private boolean editar;
+    private Personal personal;
+
+    public void setVistaController(VistaController vistaController) {
+        this.vistaController = vistaController;
+    }
+
+    public void setJpacontroller(PersonalJpaController jpacontroller) {
+        this.jpacontroller = jpacontroller;
+    }
+
+    public void setVistaPrincipal(VistaPrincipal vistaPrincipal) {
+        this.vistaPrincipal = vistaPrincipal;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+    
     /**
      * Creates new form VistaPersonal
      */
@@ -40,7 +73,7 @@ public class VistaPersonal extends javax.swing.JFrame {
         txt_Salario = new javax.swing.JTextField();
         txt_Telefono = new javax.swing.JTextField();
         txt_Correo = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        guardarPersonal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,11 +108,16 @@ public class VistaPersonal extends javax.swing.JFrame {
         lbl_Correo.setForeground(new java.awt.Color(102, 153, 255));
         lbl_Correo.setText("Correo:");
 
-        jButton1.setBackground(new java.awt.Color(153, 204, 255));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Guardar");
-        jButton1.setBorder(null);
+        guardarPersonal.setBackground(new java.awt.Color(153, 204, 255));
+        guardarPersonal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        guardarPersonal.setForeground(new java.awt.Color(255, 255, 255));
+        guardarPersonal.setText("Guardar");
+        guardarPersonal.setBorder(null);
+        guardarPersonal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                guardarPersonalMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,7 +144,7 @@ public class VistaPersonal extends javax.swing.JFrame {
                                 .addComponent(lbl_Personal)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(guardarPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -139,7 +177,7 @@ public class VistaPersonal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_Correo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(guardarPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -171,6 +209,8 @@ public class VistaPersonal extends javax.swing.JFrame {
         txt_Telefono.getAccessibleContext().setAccessibleParent(txt_Telefono);
         txt_Correo.getAccessibleContext().setAccessibleName("txt_Correo");
         txt_Correo.getAccessibleContext().setAccessibleParent(txt_Correo);
+        guardarPersonal.getAccessibleContext().setAccessibleName("guardarPersonal");
+        guardarPersonal.getAccessibleContext().setAccessibleParent(guardarPersonal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,8 +226,54 @@ public class VistaPersonal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void guardarPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarPersonalMouseClicked
+        String nombre = this.txt_Nombre.getText();
+        String apellido = this.txt_Apellido.getText();
+        String ocupacion = this.txt_Ocupacion.getText();
+        String salario = this.txt_Salario.getText();
+        String telefonoCliente = this.txt_Telefono.getText();
+        String correoCliente = this.txt_Correo.getText();
+        
+        boolean rs = false;
+        
+        if (editar) {
+            cliente.setNombreRazonSocial(nombreRazonSocial);
+            cliente.setTipoDocumento(tipoDocumento);
+            cliente.setNumeroDocumento(numeroDocumento);
+            cliente.setDireccionCliente(direccionCliente);
+            cliente.setTelefonoCliente(telefonoCliente);
+            cliente.setCorreoCliente(correoCliente);
+            try {
+                rs = jpacontroller.edit(cliente);
+            } catch (Exception ex) {
+                Logger.getLogger(VistaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (rs) {
+                vistaController.CargarClientes();
+                vistaPrincipal.lbl_alert.setText("Cliente Actualizado");
+            } else {
+                vistaPrincipal.lbl_alert.setText("Error al Actualizar Cliente");
+            }
+            this.dispose();
+        } else {
+
+            cliente = new Cliente(nombreRazonSocial, tipoDocumento, numeroDocumento, telefonoCliente, correoCliente, direccionCliente);
+            rs = jpacontroller.create(cliente);
+
+            if (rs) {
+                vistaController.CargarClientes();
+                vistaPrincipal.lbl_alert.setText("Cliente Creado");
+            } else {
+                vistaPrincipal.lbl_alert.setText("Error al Crear Cliente");
+            }
+
+            this.dispose();
+        }
+    }//GEN-LAST:event_guardarPersonalMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    public javax.swing.JButton guardarPersonal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_Apellido;
     public javax.swing.JLabel lbl_Correo;

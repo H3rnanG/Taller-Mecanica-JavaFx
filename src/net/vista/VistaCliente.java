@@ -16,6 +16,7 @@ import net.modelo.Cliente;
  */
 public class VistaCliente extends javax.swing.JFrame {
 
+    private VistaController vistaController;
     private ClienteJpaController jpacontroller;
     private VistaPrincipal vistaPrincipal;
     private boolean editar;
@@ -35,6 +36,10 @@ public class VistaCliente extends javax.swing.JFrame {
 
     public void setEditar(boolean editar) {
         this.editar = editar;
+    }
+
+    public void setVistaController(VistaController vistaController) {
+        this.vistaController = vistaController;
     }
     
     /**
@@ -237,15 +242,15 @@ public class VistaCliente extends javax.swing.JFrame {
         String telefonoCliente = this.txt_Telefono.getText();
         String correoCliente = this.txt_Correo.getText();
         
-        cliente.setNombreRazonSocial(nombreRazonSocial);
-        cliente.setTipoDocumento(tipoDocumento);
-        cliente.setNumeroDocumento(numeroDocumento);
-        cliente.setDireccionCliente(direccionCliente);
-        cliente.setTelefonoCliente(telefonoCliente);
-        cliente.setCorreoCliente(correoCliente);
+        boolean rs = false;
         
         if (editar) {
-            boolean rs = false;
+            cliente.setNombreRazonSocial(nombreRazonSocial);
+            cliente.setTipoDocumento(tipoDocumento);
+            cliente.setNumeroDocumento(numeroDocumento);
+            cliente.setDireccionCliente(direccionCliente);
+            cliente.setTelefonoCliente(telefonoCliente);
+            cliente.setCorreoCliente(correoCliente);
             try {
                 rs = jpacontroller.edit(cliente);
             } catch (Exception ex) {
@@ -253,6 +258,7 @@ public class VistaCliente extends javax.swing.JFrame {
             }
 
             if (rs) {
+                vistaController.CargarClientes();
                 vistaPrincipal.lbl_alert.setText("Cliente Actualizado");
             } else {
                 vistaPrincipal.lbl_alert.setText("Error al Actualizar Cliente");
@@ -261,9 +267,10 @@ public class VistaCliente extends javax.swing.JFrame {
         } else {
 
             cliente = new Cliente(nombreRazonSocial, tipoDocumento, numeroDocumento, telefonoCliente, correoCliente, direccionCliente);
-            boolean rs = jpacontroller.create(cliente);
+            rs = jpacontroller.create(cliente);
 
             if (rs) {
+                vistaController.CargarClientes();
                 vistaPrincipal.lbl_alert.setText("Cliente Creado");
             } else {
                 vistaPrincipal.lbl_alert.setText("Error al Crear Cliente");
