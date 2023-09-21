@@ -4,29 +4,29 @@
  */
 package net.vista;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import net.controlador.exceptions.NonexistentEntityException;
-import net.controladores.VistaController;
+import net.controlador.ControladorCliente;
+import net.controlador.ControladorClienteVehiculo;
+import net.controlador.ControladorPersonal;
+import net.controlador.ControladorServicio;
+import net.controlador.ControladorVehiculo;
 
 /**
  *
  * @author user
  */
 public class VistaPrincipal extends javax.swing.JFrame {
-
-    private VistaController vistaController;
-    
-    public void setVistaController(VistaController vistaController) {
-        this.vistaController = vistaController;
-    }
+    private ControladorCliente controladorCliente = new ControladorCliente(this);
+    private ControladorPersonal controladorPersonal = new ControladorPersonal(this);
+    private ControladorVehiculo controladorVehiculo = new ControladorVehiculo(this);
+    private ControladorClienteVehiculo controladorClienteVehiculo = new ControladorClienteVehiculo(this);
+    private ControladorServicio controladorServicio = new ControladorServicio(this);
     
     /**
      * Creates new form VistaPrincipal
      */
     public VistaPrincipal() {
         initComponents();
-        
+        controladorCliente.CargarClientes();
     }
     
     /**
@@ -55,6 +55,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnEditarCliente = new javax.swing.JButton();
         btnEliminarCliente = new javax.swing.JButton();
         btnHistorialCliente = new javax.swing.JButton();
+        lbl_NuevaVisita = new javax.swing.JButton();
         pnl_personal = new javax.swing.JPanel();
         Jtable = new javax.swing.JScrollPane();
         jTablePersonal = new javax.swing.JTable();
@@ -64,58 +65,76 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pnl_vehiculos = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableVehiculo = new javax.swing.JTable();
+        btn_NuevoVehiculo = new javax.swing.JButton();
+        btn_EditarVehiculo = new javax.swing.JButton();
+        btn_AsignarCliente = new javax.swing.JButton();
+        btn_EliminarVehiculo = new javax.swing.JButton();
         pnl_repuestos = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTableRepuesto = new javax.swing.JTable();
+        jTableServicios = new javax.swing.JTable();
+        btn_NuevoServicio = new javax.swing.JButton();
+        btn_EditarServicio = new javax.swing.JButton();
+        btn_EliminarServicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1050, 520));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(11, 19, 43));
 
-        btnRepuesto.setBackground(new java.awt.Color(102, 153, 255));
+        btnRepuesto.setBackground(new java.awt.Color(58, 80, 107));
         btnRepuesto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRepuesto.setForeground(new java.awt.Color(255, 255, 255));
-        btnRepuesto.setText("Repuestos/Herramientas");
-        btnRepuesto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnRepuesto.setText("Servicios");
+        btnRepuesto.setBorder(null);
         btnRepuesto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnRepuestoMouseClicked(evt);
             }
         });
+        btnRepuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRepuestoActionPerformed(evt);
+            }
+        });
 
-        btnVehiculos.setBackground(new java.awt.Color(102, 153, 255));
+        btnVehiculos.setBackground(new java.awt.Color(58, 80, 107));
         btnVehiculos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnVehiculos.setForeground(new java.awt.Color(255, 255, 255));
         btnVehiculos.setText("Vehiculos");
-        btnVehiculos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnVehiculos.setBorder(null);
         btnVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnVehiculosMouseClicked(evt);
             }
         });
 
-        btnPersonal.setBackground(new java.awt.Color(102, 153, 255));
+        btnPersonal.setBackground(new java.awt.Color(58, 80, 107));
         btnPersonal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnPersonal.setForeground(new java.awt.Color(255, 255, 255));
         btnPersonal.setText("Personal");
-        btnPersonal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnPersonal.setBorder(null);
         btnPersonal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnPersonalMouseClicked(evt);
             }
         });
 
-        btnClientes.setBackground(new java.awt.Color(102, 153, 255));
+        btnClientes.setBackground(new java.awt.Color(58, 80, 107));
         btnClientes.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnClientes.setForeground(new java.awt.Color(255, 255, 255));
         btnClientes.setText("Clientes");
-        btnClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnClientes.setBorder(null);
         btnClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnClientesMouseClicked(evt);
+            }
+        });
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
             }
         });
 
@@ -127,6 +146,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("M E C H");
 
+        lbl_alert.setBackground(new java.awt.Color(102, 102, 255));
         lbl_alert.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbl_alert.setForeground(new java.awt.Color(255, 255, 255));
         lbl_alert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -136,7 +156,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
@@ -147,20 +167,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnPersonal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_alert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_alert, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jLabel2))
                     .addComponent(jLabel1))
-                .addGap(54, 54, 54)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,7 +188,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRepuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(34, 34, 34))
         );
 
         btnRepuesto.getAccessibleContext().setAccessibleName("btnRepuesto");
@@ -183,10 +203,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         lbl_alert.getAccessibleContext().setAccessibleName("lbl_alert");
         lbl_alert.getAccessibleContext().setAccessibleParent(lbl_alert);
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 510));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 510));
 
-        pnl_cliente.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_cliente.setBackground(new java.awt.Color(58, 80, 107));
 
+        jTableCliente.setBackground(new java.awt.Color(28, 37, 65));
+        jTableCliente.setForeground(new java.awt.Color(255, 255, 255));
         jTableCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -215,43 +237,58 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jTableCliente.getAccessibleContext().setAccessibleName("jTableCliente");
         jTableCliente.getAccessibleContext().setAccessibleParent(jTableCliente);
 
-        btnNuevoCliente.setBackground(new java.awt.Color(255, 255, 255));
-        btnNuevoCliente.setForeground(new java.awt.Color(102, 153, 255));
+        btnNuevoCliente.setBackground(new java.awt.Color(28, 37, 65));
+        btnNuevoCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnNuevoCliente.setText("Nuevo Cliente");
-        btnNuevoCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
+        btnNuevoCliente.setBorder(null);
         btnNuevoCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNuevoClienteMouseClicked(evt);
             }
         });
+        btnNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoClienteActionPerformed(evt);
+            }
+        });
 
-        btnEditarCliente.setBackground(new java.awt.Color(255, 255, 255));
-        btnEditarCliente.setForeground(new java.awt.Color(102, 153, 255));
+        btnEditarCliente.setBackground(new java.awt.Color(28, 37, 65));
+        btnEditarCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnEditarCliente.setText("Editar Cliente");
-        btnEditarCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
+        btnEditarCliente.setBorder(null);
         btnEditarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEditarClienteMouseClicked(evt);
             }
         });
 
-        btnEliminarCliente.setBackground(new java.awt.Color(255, 255, 255));
-        btnEliminarCliente.setForeground(new java.awt.Color(102, 153, 255));
+        btnEliminarCliente.setBackground(new java.awt.Color(28, 37, 65));
+        btnEliminarCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarCliente.setText("Eliminar Cliente");
-        btnEliminarCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
+        btnEliminarCliente.setBorder(null);
         btnEliminarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEliminarClienteMouseClicked(evt);
             }
         });
 
-        btnHistorialCliente.setBackground(new java.awt.Color(255, 255, 255));
-        btnHistorialCliente.setForeground(new java.awt.Color(102, 153, 255));
+        btnHistorialCliente.setBackground(new java.awt.Color(28, 37, 65));
+        btnHistorialCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnHistorialCliente.setText("Historial Cliente");
-        btnHistorialCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
+        btnHistorialCliente.setBorder(null);
         btnHistorialCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnHistorialClienteMouseClicked(evt);
+            }
+        });
+
+        lbl_NuevaVisita.setBackground(new java.awt.Color(28, 37, 65));
+        lbl_NuevaVisita.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_NuevaVisita.setText("Nueva Visita");
+        lbl_NuevaVisita.setBorder(null);
+        lbl_NuevaVisita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_NuevaVisitaMouseClicked(evt);
             }
         });
 
@@ -260,9 +297,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pnl_clienteLayout.setHorizontalGroup(
             pnl_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_clienteLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(pnl_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
                     .addGroup(pnl_clienteLayout.createSequentialGroup()
                         .addComponent(btnNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -271,21 +307,26 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addComponent(btnEliminarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnHistorialCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                        .addComponent(lbl_NuevaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_clienteLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addGap(10, 10, 10))))
         );
         pnl_clienteLayout.setVerticalGroup(
             pnl_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_clienteLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(pnl_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(19, 19, 19)
+                .addGroup(pnl_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEliminarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNuevoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(btnEditarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(lbl_NuevaVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
 
         btnNuevoCliente.getAccessibleContext().setAccessibleName("btnNuevoCliente");
@@ -297,71 +338,101 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnEliminarCliente.getAccessibleContext().setAccessibleParent(btnEliminarCliente);
         btnHistorialCliente.getAccessibleContext().setAccessibleName("btnHistorialCliente");
         btnHistorialCliente.getAccessibleContext().setAccessibleParent(btnHistorialCliente);
+        lbl_NuevaVisita.getAccessibleContext().setAccessibleName("lbl_NuevaVisita");
+        lbl_NuevaVisita.getAccessibleContext().setAccessibleDescription("");
+        lbl_NuevaVisita.getAccessibleContext().setAccessibleParent(lbl_NuevaVisita);
 
         jTabbedPane1.addTab("tab1", pnl_cliente);
 
-        pnl_personal.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_personal.setBackground(new java.awt.Color(58, 80, 107));
 
+        jTablePersonal.setBackground(new java.awt.Color(28, 37, 65));
+        jTablePersonal.setForeground(new java.awt.Color(255, 255, 255));
         jTablePersonal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Nombre", "Apellido", "Ocupacion", "Salario", "Telefono", "Correo"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         Jtable.setViewportView(jTablePersonal);
         jTablePersonal.getAccessibleContext().setAccessibleName("jTablePersonal");
         jTablePersonal.getAccessibleContext().setAccessibleParent(jTablePersonal);
 
-        btnNuevoPersonal.setBackground(new java.awt.Color(255, 255, 255));
-        btnNuevoPersonal.setForeground(new java.awt.Color(102, 153, 255));
+        btnNuevoPersonal.setBackground(new java.awt.Color(28, 37, 65));
+        btnNuevoPersonal.setForeground(new java.awt.Color(255, 255, 255));
         btnNuevoPersonal.setText("Nuervo Personal");
-        btnNuevoPersonal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
+        btnNuevoPersonal.setBorder(null);
         btnNuevoPersonal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNuevoPersonalMouseClicked(evt);
             }
         });
 
-        btnEditarPersonal.setBackground(new java.awt.Color(255, 255, 255));
-        btnEditarPersonal.setForeground(new java.awt.Color(102, 153, 255));
+        btnEditarPersonal.setBackground(new java.awt.Color(28, 37, 65));
+        btnEditarPersonal.setForeground(new java.awt.Color(255, 255, 255));
         btnEditarPersonal.setText("Editar Personal");
-        btnEditarPersonal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
+        btnEditarPersonal.setBorder(null);
+        btnEditarPersonal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditarPersonalMouseClicked(evt);
+            }
+        });
 
-        btnEliminarPersonal.setBackground(new java.awt.Color(255, 255, 255));
-        btnEliminarPersonal.setForeground(new java.awt.Color(102, 153, 255));
+        btnEliminarPersonal.setBackground(new java.awt.Color(28, 37, 65));
+        btnEliminarPersonal.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarPersonal.setText("Eliminar Personal");
-        btnEliminarPersonal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
+        btnEliminarPersonal.setBorder(null);
+        btnEliminarPersonal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarPersonalMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_personalLayout = new javax.swing.GroupLayout(pnl_personal);
         pnl_personal.setLayout(pnl_personalLayout);
         pnl_personalLayout.setHorizontalGroup(
             pnl_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_personalLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(pnl_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Jtable, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+                    .addComponent(Jtable)
                     .addGroup(pnl_personalLayout.createSequentialGroup()
                         .addComponent(btnNuevoPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEditarPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminarPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(0, 364, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
         );
         pnl_personalLayout.setVerticalGroup(
             pnl_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_personalLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(pnl_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnNuevoPersonal, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(btnNuevoPersonal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditarPersonal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminarPersonal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(Jtable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(btnEliminarPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addComponent(Jtable, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
 
         btnNuevoPersonal.getAccessibleContext().setAccessibleName("btnNuevoPersonal");
@@ -373,54 +444,176 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab2", pnl_personal);
 
-        pnl_vehiculos.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_vehiculos.setBackground(new java.awt.Color(58, 80, 107));
 
+        jTableVehiculo.setBackground(new java.awt.Color(28, 37, 65));
+        jTableVehiculo.setForeground(new java.awt.Color(255, 255, 255));
         jTableVehiculo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Placa", "Kilometraje", "Modelo", "Marca", "Color", "Numero Serie", "Numero Servicios", "Fecha Fabricacion", "Numero Chasis"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(jTableVehiculo);
+        jTableVehiculo.getAccessibleContext().setAccessibleName("jTableVehiculo");
+        jTableVehiculo.getAccessibleContext().setAccessibleParent(jTableVehiculo);
+
+        btn_NuevoVehiculo.setBackground(new java.awt.Color(28, 37, 65));
+        btn_NuevoVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        btn_NuevoVehiculo.setText("Nuevo Vehiculo");
+        btn_NuevoVehiculo.setBorder(null);
+        btn_NuevoVehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_NuevoVehiculoMouseClicked(evt);
+            }
+        });
+
+        btn_EditarVehiculo.setBackground(new java.awt.Color(28, 37, 65));
+        btn_EditarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        btn_EditarVehiculo.setText("Editar Vehiculo");
+        btn_EditarVehiculo.setBorder(null);
+        btn_EditarVehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_EditarVehiculoMouseClicked(evt);
+            }
+        });
+
+        btn_AsignarCliente.setBackground(new java.awt.Color(28, 37, 65));
+        btn_AsignarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btn_AsignarCliente.setText("Asignar Cliente");
+        btn_AsignarCliente.setBorder(null);
+        btn_AsignarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_AsignarClienteMouseClicked(evt);
+            }
+        });
+
+        btn_EliminarVehiculo.setBackground(new java.awt.Color(28, 37, 65));
+        btn_EliminarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        btn_EliminarVehiculo.setText("Eliminar Vehiculo");
+        btn_EliminarVehiculo.setBorder(null);
+        btn_EliminarVehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_EliminarVehiculoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_vehiculosLayout = new javax.swing.GroupLayout(pnl_vehiculos);
         pnl_vehiculos.setLayout(pnl_vehiculosLayout);
         pnl_vehiculosLayout.setHorizontalGroup(
             pnl_vehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_vehiculosLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
+            .addGroup(pnl_vehiculosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+                .addComponent(btn_NuevoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_EditarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_EliminarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_AsignarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnl_vehiculosLayout.setVerticalGroup(
             pnl_vehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_vehiculosLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(19, 19, 19)
+                .addGroup(pnl_vehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_NuevoVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnl_vehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_AsignarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_EliminarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_EditarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btn_NuevoVehiculo.getAccessibleContext().setAccessibleName("btn_NuevoVehiculo");
+        btn_NuevoVehiculo.getAccessibleContext().setAccessibleParent(btn_NuevoVehiculo);
+        btn_EditarVehiculo.getAccessibleContext().setAccessibleName("btn_EditarVehiculo");
+        btn_EditarVehiculo.getAccessibleContext().setAccessibleDescription("");
+        btn_EditarVehiculo.getAccessibleContext().setAccessibleParent(btn_EditarVehiculo);
+        btn_AsignarCliente.getAccessibleContext().setAccessibleName("btn_AsignarCliente");
+        btn_AsignarCliente.getAccessibleContext().setAccessibleDescription("");
+        btn_AsignarCliente.getAccessibleContext().setAccessibleParent(btn_AsignarCliente);
+        btn_EliminarVehiculo.getAccessibleContext().setAccessibleName("btn_EliminarVehiculo");
 
         jTabbedPane1.addTab("tab3", pnl_vehiculos);
 
-        pnl_repuestos.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_repuestos.setBackground(new java.awt.Color(58, 80, 107));
 
-        jTableRepuesto.setModel(new javax.swing.table.DefaultTableModel(
+        jTableServicios.setBackground(new java.awt.Color(28, 37, 65));
+        jTableServicios.setForeground(new java.awt.Color(255, 255, 255));
+        jTableServicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id Servicio", "Personal", "Placa", "Fecha", "Precio", "Descripcion"
             }
-        ));
-        jScrollPane4.setViewportView(jTableRepuesto);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jTableServicios);
+        jTableServicios.getAccessibleContext().setAccessibleName("jTableServicios");
+        jTableServicios.getAccessibleContext().setAccessibleParent(jTableServicios);
+
+        btn_NuevoServicio.setBackground(new java.awt.Color(28, 37, 65));
+        btn_NuevoServicio.setForeground(new java.awt.Color(255, 255, 255));
+        btn_NuevoServicio.setText("Nuevo Servicio");
+        btn_NuevoServicio.setBorder(null);
+        btn_NuevoServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_NuevoServicioMouseClicked(evt);
+            }
+        });
+
+        btn_EditarServicio.setBackground(new java.awt.Color(28, 37, 65));
+        btn_EditarServicio.setForeground(new java.awt.Color(255, 255, 255));
+        btn_EditarServicio.setText("Editar Servicio");
+        btn_EditarServicio.setBorder(null);
+        btn_EditarServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_EditarServicioMouseClicked(evt);
+            }
+        });
+
+        btn_EliminarServicio.setBackground(new java.awt.Color(28, 37, 65));
+        btn_EliminarServicio.setForeground(new java.awt.Color(255, 255, 255));
+        btn_EliminarServicio.setText("Eliminar Servicio");
+        btn_EliminarServicio.setBorder(null);
+        btn_EliminarServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_EliminarServicioMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_repuestosLayout = new javax.swing.GroupLayout(pnl_repuestos);
         pnl_repuestos.setLayout(pnl_repuestosLayout);
@@ -428,20 +621,40 @@ public class VistaPrincipal extends javax.swing.JFrame {
             pnl_repuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_repuestosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+                .addGroup(pnl_repuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+                    .addGroup(pnl_repuestosLayout.createSequentialGroup()
+                        .addComponent(btn_NuevoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_EditarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_EliminarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnl_repuestosLayout.setVerticalGroup(
             pnl_repuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_repuestosLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_repuestosLayout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(pnl_repuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_NuevoServicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_EliminarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_EditarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        btn_NuevoServicio.getAccessibleContext().setAccessibleName("btn_NuevoServicio");
+        btn_NuevoServicio.getAccessibleContext().setAccessibleParent(btn_NuevoServicio);
+        btn_EditarServicio.getAccessibleContext().setAccessibleName("btn_EditarServicio");
+        btn_EditarServicio.getAccessibleContext().setAccessibleParent(btn_EditarServicio);
+        btn_EliminarServicio.getAccessibleContext().setAccessibleName("btn_EliminarServicio");
+        btn_EliminarServicio.getAccessibleContext().setAccessibleParent(btn_EliminarServicio);
+
         jTabbedPane1.addTab("tab4", pnl_repuestos);
 
-        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, -30, 780, 540));
+        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, -30, 770, 540));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -451,51 +664,101 @@ public class VistaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoClienteMouseClicked
-        vistaController.CreateClienteView();
+        controladorCliente.AbrirVistaCrear();   
     }//GEN-LAST:event_btnNuevoClienteMouseClicked
 
     private void btnEditarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarClienteMouseClicked
-        vistaController.UpdateClienteView();
+        controladorCliente.AbrirVistaEditar();
     }//GEN-LAST:event_btnEditarClienteMouseClicked
 
     private void btnEliminarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarClienteMouseClicked
-        try {
-            vistaController.eliminar();
-        } catch (NonexistentEntityException ex) {
-            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        controladorCliente.EliminarCliente();
     }//GEN-LAST:event_btnEliminarClienteMouseClicked
 
     private void btnHistorialClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistorialClienteMouseClicked
-        vistaController.historialCliente();
+        controladorCliente.VistaHistorialCliente();
     }//GEN-LAST:event_btnHistorialClienteMouseClicked
 
     private void btnClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientesMouseClicked
         this.jTabbedPane1.setSelectedIndex(0);
+        controladorCliente.CargarClientes();
     }//GEN-LAST:event_btnClientesMouseClicked
 
     private void btnPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPersonalMouseClicked
         this.jTabbedPane1.setSelectedIndex(1);
+        controladorPersonal.CargarPersonals();
     }//GEN-LAST:event_btnPersonalMouseClicked
 
     private void btnVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVehiculosMouseClicked
         this.jTabbedPane1.setSelectedIndex(2);
+        controladorVehiculo.CargarVehiculos();
     }//GEN-LAST:event_btnVehiculosMouseClicked
 
     private void btnRepuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRepuestoMouseClicked
         this.jTabbedPane1.setSelectedIndex(3);
+        controladorServicio.CargarServicios();
     }//GEN-LAST:event_btnRepuestoMouseClicked
 
     private void btnNuevoPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoPersonalMouseClicked
-        vistaController.CreatePersonalView();
+        controladorPersonal.AbrirVistaCrear();
     }//GEN-LAST:event_btnNuevoPersonalMouseClicked
+
+    private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
+    }//GEN-LAST:event_btnNuevoClienteActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnEditarPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarPersonalMouseClicked
+        controladorPersonal.AbrirVistaEditar();
+    }//GEN-LAST:event_btnEditarPersonalMouseClicked
+
+    private void btnEliminarPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarPersonalMouseClicked
+        controladorPersonal.EliminarCliente();
+    }//GEN-LAST:event_btnEliminarPersonalMouseClicked
+
+    private void btn_NuevoVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NuevoVehiculoMouseClicked
+        controladorVehiculo.AbrirVistaCrear();
+    }//GEN-LAST:event_btn_NuevoVehiculoMouseClicked
+
+    private void btn_EditarVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EditarVehiculoMouseClicked
+        controladorVehiculo.AbrirVistaEditar();
+    }//GEN-LAST:event_btn_EditarVehiculoMouseClicked
+
+    private void btn_AsignarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AsignarClienteMouseClicked
+        controladorClienteVehiculo.AbrirVista();
+    }//GEN-LAST:event_btn_AsignarClienteMouseClicked
+
+    private void lbl_NuevaVisitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_NuevaVisitaMouseClicked
+        controladorCliente.AbrirVistaVisita();
+    }//GEN-LAST:event_lbl_NuevaVisitaMouseClicked
+
+    private void btn_EliminarVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EliminarVehiculoMouseClicked
+        controladorVehiculo.EliminarCliente();
+    }//GEN-LAST:event_btn_EliminarVehiculoMouseClicked
+
+    private void btnRepuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepuestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRepuestoActionPerformed
+
+    private void btn_NuevoServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NuevoServicioMouseClicked
+        controladorServicio.AbrirVistaServicio();
+    }//GEN-LAST:event_btn_NuevoServicioMouseClicked
+
+    private void btn_EditarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EditarServicioMouseClicked
+        controladorServicio.AbrirVistaEditar();
+    }//GEN-LAST:event_btn_EditarServicioMouseClicked
+
+    private void btn_EliminarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EliminarServicioMouseClicked
+        controladorServicio.Eliminar();
+    }//GEN-LAST:event_btn_EliminarServicioMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane Jtable;
@@ -510,6 +773,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JButton btnPersonal;
     public javax.swing.JButton btnRepuesto;
     public javax.swing.JButton btnVehiculos;
+    public javax.swing.JButton btn_AsignarCliente;
+    public javax.swing.JButton btn_EditarServicio;
+    public javax.swing.JButton btn_EditarVehiculo;
+    public javax.swing.JButton btn_EliminarServicio;
+    public javax.swing.JButton btn_EliminarVehiculo;
+    public javax.swing.JButton btn_NuevoServicio;
+    public javax.swing.JButton btn_NuevoVehiculo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -520,8 +790,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable jTableCliente;
     public javax.swing.JTable jTablePersonal;
-    private javax.swing.JTable jTableRepuesto;
-    private javax.swing.JTable jTableVehiculo;
+    public javax.swing.JTable jTableServicios;
+    public javax.swing.JTable jTableVehiculo;
+    public javax.swing.JButton lbl_NuevaVisita;
     public javax.swing.JLabel lbl_alert;
     private javax.swing.JPanel pnl_cliente;
     private javax.swing.JPanel pnl_personal;

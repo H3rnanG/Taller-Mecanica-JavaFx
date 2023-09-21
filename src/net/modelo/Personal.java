@@ -60,8 +60,14 @@ public class Personal implements Serializable {
     public Personal() {
     }
 
-    public Personal(Integer idPersonal) {
-        this.idPersonal = idPersonal;
+    public Personal(String nombrePersonal, String apellidoPersonal, String ocupacion, Float salario, String telefonoPersonal, String correoPersonal, String contraPersonal) {
+        this.nombrePersonal = nombrePersonal;
+        this.apellidoPersonal = apellidoPersonal;
+        this.ocupacion = ocupacion;
+        this.salario = salario;
+        this.telefonoPersonal = telefonoPersonal;
+        this.correoPersonal = correoPersonal;
+        this.contraPersonal = contraPersonal;
     }
 
     public Integer getIdPersonal() {

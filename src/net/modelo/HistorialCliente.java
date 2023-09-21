@@ -56,6 +56,12 @@ public class HistorialCliente implements Serializable {
         this.idHistorialCliente = idHistorialCliente;
     }
 
+    public HistorialCliente(Integer idCliente, Date fechaHistorialCliente, String descripcion) {
+        this.idCliente = idCliente;
+        this.fechaHistorialCliente = fechaHistorialCliente;
+        this.descripcion = descripcion;
+    }
+    
     public Integer getIdHistorialCliente() {
         return idHistorialCliente;
     }

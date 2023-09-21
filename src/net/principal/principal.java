@@ -1,15 +1,15 @@
 package net.principal;
 
-import net.controladores.VistaController;
+import net.vista.VistaPrincipal;
 
 public class principal {
 
     public static void main(String[] args) {
         
-
-        VistaController vc = new VistaController();
-        vc.principalView();
-        
+        VistaPrincipal vp = new VistaPrincipal();
+        vp.setLocationRelativeTo(null);
+        vp.setResizable(false);
+        vp.setVisible(true);
         
     }
     
