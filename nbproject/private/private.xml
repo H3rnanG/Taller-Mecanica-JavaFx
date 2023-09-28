@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Senati/Quinto%20Semestre/Seminario%20de%20Complementacion/Taller_Mecanica/src/net/controlador/ControladorVehiculo.java</file>
-            <file>file:/E:/Senati/Quinto%20Semestre/Seminario%20de%20Complementacion/Taller_Mecanica/src/net/controlador/ControladorCliente.java</file>
-            <file>file:/E:/Senati/Quinto%20Semestre/Seminario%20de%20Complementacion/Taller_Mecanica/src/net/vista/VistaServicio.java</file>
-            <file>file:/E:/Senati/Quinto%20Semestre/Seminario%20de%20Complementacion/Taller_Mecanica/src/net/vista/VistaVehiculo.java</file>
+            <file>file:/E:/Senati/Quinto%20Semestre/Seminario%20de%20Complementacion/Taller_Mecanica/src/net/controlador/ControladorServicio.java</file>
+            <file>file:/E:/Senati/Quinto%20Semestre/Seminario%20de%20Complementacion/Taller_Mecanica/src/net/vista/VistaServiciosPagados.java</file>
+            <file>file:/E:/Senati/Quinto%20Semestre/Seminario%20de%20Complementacion/Taller_Mecanica/src/net/vista/VistaPagarServicio.java</file>
             <file>file:/E:/Senati/Quinto%20Semestre/Seminario%20de%20Complementacion/Taller_Mecanica/src/net/vista/VistaPrincipal.java</file>
         </group>
     </open-files>

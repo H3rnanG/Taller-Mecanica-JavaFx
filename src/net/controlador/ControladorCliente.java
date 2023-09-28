@@ -294,54 +294,54 @@ public class ControladorCliente {
         if (vistaHistorialCliente == null) {
         vistaHistorialCliente = new VistaHistorialCliente();
         vistaHistorialCliente.setLocationRelativeTo(null);
-    }
+        }
 
-    int filaSeleccionada = vistaPrincipal.jTableCliente.getSelectedRow();
+        int filaSeleccionada = vistaPrincipal.jTableCliente.getSelectedRow();
 
-    if (filaSeleccionada != -1) {
-        Object idSeleccionado = vistaPrincipal.jTableCliente.getValueAt(filaSeleccionada, 0);
+        if (filaSeleccionada != -1) {
+            Object idSeleccionado = vistaPrincipal.jTableCliente.getValueAt(filaSeleccionada, 0);
 
-        if (idSeleccionado != null) {
-            // Obtener el EntityManager
-            EntityManager em = entityManager();
+            if (idSeleccionado != null) {
+                // Obtener el EntityManager
+                EntityManager em = entityManager();
 
-            try {
-                // Crear una consulta para obtener el historial del cliente seleccionado
-                Query query = em.createQuery("SELECT hc FROM HistorialCliente hc WHERE hc.idCliente = :clienteId");
-                query.setParameter("clienteId", idSeleccionado);
+                try {
+                    // Crear una consulta para obtener el historial del cliente seleccionado
+                    Query query = em.createQuery("SELECT hc FROM HistorialCliente hc WHERE hc.idCliente = :clienteId");
+                    query.setParameter("clienteId", idSeleccionado);
 
-                // Obtener una lista de resultados
-                List<HistorialCliente> historialClienteList = query.getResultList();
+                    // Obtener una lista de resultados
+                    List<HistorialCliente> historialClienteList = query.getResultList();
 
-                // Obtener el modelo de la tabla de la vista
-                DefaultTableModel modeloTabla = (DefaultTableModel) vistaHistorialCliente.JtableHistoriaCliente.getModel();
+                    // Obtener el modelo de la tabla de la vista
+                    DefaultTableModel modeloTabla = (DefaultTableModel) vistaHistorialCliente.JtableHistoriaCliente.getModel();
 
-                // Limpiar el modelo de la tabla
-                modeloTabla.setRowCount(0);
+                    // Limpiar el modelo de la tabla
+                    modeloTabla.setRowCount(0);
 
-                // Llenar el modelo de la tabla con los datos del historial
-                for (HistorialCliente historialCliente : historialClienteList) {
-                    modeloTabla.addRow(new Object[] {
-                        historialCliente.getIdCliente(),
-                        historialCliente.getFechaHistorialCliente(),
-                        historialCliente.getDescripcion(),
-                    });
+                    // Llenar el modelo de la tabla con los datos del historial
+                    for (HistorialCliente historialCliente : historialClienteList) {
+                        modeloTabla.addRow(new Object[] {
+                            historialCliente.getIdCliente(),
+                            historialCliente.getFechaHistorialCliente(),
+                            historialCliente.getDescripcion(),
+                        });
+                    }
+
+                    // Mostrar la vista
+                    vistaHistorialCliente.setVisible(true);
+                } catch (Exception e) {
+                    vistaPrincipal.lbl_alert.setText("Error al obtener historial del cliente.");
+                } finally {
+                    // Cerrar el EntityManager
+                    em.close();
                 }
-
-                // Mostrar la vista
-                vistaHistorialCliente.setVisible(true);
-            } catch (Exception e) {
-                vistaPrincipal.lbl_alert.setText("Error al obtener historial del cliente.");
-            } finally {
-                // Cerrar el EntityManager
-                em.close();
+            } else {
+                vistaPrincipal.lbl_alert.setText("ID del cliente seleccionado es nulo.");
             }
         } else {
-            vistaPrincipal.lbl_alert.setText("ID del cliente seleccionado es nulo.");
+            vistaPrincipal.lbl_alert.setText("Ninguna fila seleccionada.");
         }
-    } else {
-        vistaPrincipal.lbl_alert.setText("Ninguna fila seleccionada.");
-    }
     }   
     
     public void nuevaVisita() {

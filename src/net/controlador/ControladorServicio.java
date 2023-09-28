@@ -125,7 +125,7 @@ public class ControladorServicio {
         EntityManager em = entityManager();
 
         // Crear una consulta para obtener todos los clientes
-        Query query = em.createQuery("SELECT s FROM Servicio s");
+        Query query = em.createQuery("SELECT s FROM Servicio s WHERE s.servicioPagado = 0");
 
         // Obtener la lista de clientes
         List<Servicio> servicios = query.getResultList();
@@ -222,7 +222,7 @@ public class ControladorServicio {
         String descripcion = vistaServicio.txt_DescripcionServicio.getText();
                 
 //      Creamos un Objeto Cliente
-        Servicio servicio = new Servicio(id_personal, id_vehiculo, fecha, precio, descripcion);
+        Servicio servicio = new Servicio(id_personal, id_vehiculo, fecha, precio, descripcion, false);
         
 //      Obtenemos el EntityManager
         EntityManager em = entityManager();

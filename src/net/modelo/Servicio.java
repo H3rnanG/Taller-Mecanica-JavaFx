@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Servicio.findByIdPersonal", query = "SELECT s FROM Servicio s WHERE s.idPersonal = :idPersonal"),
     @NamedQuery(name = "Servicio.findByIdVehiculo", query = "SELECT s FROM Servicio s WHERE s.idVehiculo = :idVehiculo"),
     @NamedQuery(name = "Servicio.findByFechaServicio", query = "SELECT s FROM Servicio s WHERE s.fechaServicio = :fechaServicio"),
-    @NamedQuery(name = "Servicio.findByPrecioServicio", query = "SELECT s FROM Servicio s WHERE s.precioServicio = :precioServicio")})
+    @NamedQuery(name = "Servicio.findByPrecioServicio", query = "SELECT s FROM Servicio s WHERE s.precioServicio = :precioServicio"),
+    @NamedQuery(name = "Servicio.findByServicioPagado", query = "SELECT s FROM Servicio s WHERE s.servicioPagado = :servicioPagado")})
 public class Servicio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,22 +56,33 @@ public class Servicio implements Serializable {
     @Lob
     @Column(name = "descripcion_servicio")
     private String descripcionServicio;
+    @Basic(optional = false)
+    @Column(name = "servicio_pagado")
+    private boolean servicioPagado;
 
     public Servicio() {
     }
 
-    public Servicio(Integer idServicio) {
-        this.idServicio = idServicio;
-    }
-
-    public Servicio(Integer idPersonal, Integer idVehiculo, Date fechaServicio, Float precioServicio, String descripcionServicio) {
+    public Servicio(Integer idPersonal, Integer idVehiculo, Date fechaServicio, Float precioServicio, String descripcionServicio, boolean servicioPagado) {
         this.idPersonal = idPersonal;
         this.idVehiculo = idVehiculo;
         this.fechaServicio = fechaServicio;
         this.precioServicio = precioServicio;
         this.descripcionServicio = descripcionServicio;
+        this.servicioPagado = servicioPagado;
     }
+
     
+    
+    public Servicio(Integer idServicio) {
+        this.idServicio = idServicio;
+    }
+
+    public Servicio(Integer idServicio, boolean servicioPagado) {
+        this.idServicio = idServicio;
+        this.servicioPagado = servicioPagado;
+    }
+
     public Integer getIdServicio() {
         return idServicio;
     }
@@ -117,6 +129,14 @@ public class Servicio implements Serializable {
 
     public void setDescripcionServicio(String descripcionServicio) {
         this.descripcionServicio = descripcionServicio;
+    }
+
+    public boolean getServicioPagado() {
+        return servicioPagado;
+    }
+
+    public void setServicioPagado(boolean servicioPagado) {
+        this.servicioPagado = servicioPagado;
     }
 
     @Override

@@ -10,6 +10,9 @@
     <class>net.modelo.HerramientaRepuesto</class>
     <class>net.modelo.ServicioRepuesto</class>
     <class>net.modelo.Servicio</class>
+    <class>net.modelo.ComprobantePago</class>
+    <class>net.modelo.MetodoPago</class>
+    <class>net.modelo.PagoServicio</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/taller_mecanica?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

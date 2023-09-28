@@ -8,6 +8,7 @@ import net.controlador.ControladorCliente;
 import net.controlador.ControladorClienteVehiculo;
 import net.controlador.ControladorPersonal;
 import net.controlador.ControladorServicio;
+import net.controlador.ControladorServicioPagado;
 import net.controlador.ControladorVehiculo;
 
 /**
@@ -20,6 +21,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private ControladorVehiculo controladorVehiculo = new ControladorVehiculo(this);
     private ControladorClienteVehiculo controladorClienteVehiculo = new ControladorClienteVehiculo(this);
     private ControladorServicio controladorServicio = new ControladorServicio(this);
+    private ControladorServicioPagado controladorServicioPagado = new ControladorServicioPagado(this);
     
     /**
      * Creates new form VistaPrincipal
@@ -69,12 +71,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btn_EditarVehiculo = new javax.swing.JButton();
         btn_AsignarCliente = new javax.swing.JButton();
         btn_EliminarVehiculo = new javax.swing.JButton();
-        pnl_repuestos = new javax.swing.JPanel();
+        pnl_servicios = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableServicios = new javax.swing.JTable();
         btn_NuevoServicio = new javax.swing.JButton();
         btn_EditarServicio = new javax.swing.JButton();
         btn_EliminarServicio = new javax.swing.JButton();
+        btn_PagarServicio = new javax.swing.JButton();
+        btn_ServicioPagados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,7 +151,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel2.setText("M E C H");
 
         lbl_alert.setBackground(new java.awt.Color(102, 102, 255));
-        lbl_alert.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbl_alert.setForeground(new java.awt.Color(255, 255, 255));
         lbl_alert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -554,7 +557,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab3", pnl_vehiculos);
 
-        pnl_repuestos.setBackground(new java.awt.Color(58, 80, 107));
+        pnl_servicios.setBackground(new java.awt.Color(58, 80, 107));
 
         jTableServicios.setBackground(new java.awt.Color(28, 37, 65));
         jTableServicios.setForeground(new java.awt.Color(255, 255, 255));
@@ -615,30 +618,57 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout pnl_repuestosLayout = new javax.swing.GroupLayout(pnl_repuestos);
-        pnl_repuestos.setLayout(pnl_repuestosLayout);
-        pnl_repuestosLayout.setHorizontalGroup(
-            pnl_repuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_repuestosLayout.createSequentialGroup()
+        btn_PagarServicio.setBackground(new java.awt.Color(28, 37, 65));
+        btn_PagarServicio.setForeground(new java.awt.Color(255, 255, 255));
+        btn_PagarServicio.setText("Pagar Servicio");
+        btn_PagarServicio.setBorder(null);
+        btn_PagarServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_PagarServicioMouseClicked(evt);
+            }
+        });
+
+        btn_ServicioPagados.setBackground(new java.awt.Color(28, 37, 65));
+        btn_ServicioPagados.setForeground(new java.awt.Color(255, 255, 255));
+        btn_ServicioPagados.setText("Servicios Pagados");
+        btn_ServicioPagados.setToolTipText("");
+        btn_ServicioPagados.setBorder(null);
+        btn_ServicioPagados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_ServicioPagadosMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnl_serviciosLayout = new javax.swing.GroupLayout(pnl_servicios);
+        pnl_servicios.setLayout(pnl_serviciosLayout);
+        pnl_serviciosLayout.setHorizontalGroup(
+            pnl_serviciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_serviciosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnl_repuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnl_serviciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
-                    .addGroup(pnl_repuestosLayout.createSequentialGroup()
+                    .addGroup(pnl_serviciosLayout.createSequentialGroup()
                         .addComponent(btn_NuevoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_EditarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_EliminarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_ServicioPagados, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_PagarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        pnl_repuestosLayout.setVerticalGroup(
-            pnl_repuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_repuestosLayout.createSequentialGroup()
+        pnl_serviciosLayout.setVerticalGroup(
+            pnl_serviciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_serviciosLayout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(pnl_repuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnl_serviciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_NuevoServicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_EliminarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnl_serviciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_EliminarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_PagarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_ServicioPagados, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_EditarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -651,8 +681,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btn_EditarServicio.getAccessibleContext().setAccessibleParent(btn_EditarServicio);
         btn_EliminarServicio.getAccessibleContext().setAccessibleName("btn_EliminarServicio");
         btn_EliminarServicio.getAccessibleContext().setAccessibleParent(btn_EliminarServicio);
+        btn_PagarServicio.getAccessibleContext().setAccessibleName("btn_PagarServicio");
+        btn_PagarServicio.getAccessibleContext().setAccessibleParent(btn_PagarServicio);
+        btn_ServicioPagados.getAccessibleContext().setAccessibleName("btn_ServicioPagados");
+        btn_ServicioPagados.getAccessibleContext().setAccessibleParent(btn_ServicioPagados);
 
-        jTabbedPane1.addTab("tab4", pnl_repuestos);
+        jTabbedPane1.addTab("tab4", pnl_servicios);
+        pnl_servicios.getAccessibleContext().setAccessibleName("pnl_servicios");
+        pnl_servicios.getAccessibleContext().setAccessibleParent(pnl_servicios);
 
         jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, -30, 770, 540));
 
@@ -760,6 +796,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         controladorServicio.Eliminar();
     }//GEN-LAST:event_btn_EliminarServicioMouseClicked
 
+    private void btn_PagarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_PagarServicioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_PagarServicioMouseClicked
+
+    private void btn_ServicioPagadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ServicioPagadosMouseClicked
+        controladorServicioPagado.AbrirVistaVer();
+    }//GEN-LAST:event_btn_ServicioPagadosMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane Jtable;
     public javax.swing.JButton btnClientes;
@@ -780,6 +824,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JButton btn_EliminarVehiculo;
     public javax.swing.JButton btn_NuevoServicio;
     public javax.swing.JButton btn_NuevoVehiculo;
+    public javax.swing.JButton btn_PagarServicio;
+    public javax.swing.JButton btn_ServicioPagados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -796,7 +842,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JLabel lbl_alert;
     private javax.swing.JPanel pnl_cliente;
     private javax.swing.JPanel pnl_personal;
-    private javax.swing.JPanel pnl_repuestos;
+    private javax.swing.JPanel pnl_servicios;
     private javax.swing.JPanel pnl_vehiculos;
     // End of variables declaration//GEN-END:variables
 }
