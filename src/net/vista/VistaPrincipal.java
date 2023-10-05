@@ -797,7 +797,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_EliminarServicioMouseClicked
 
     private void btn_PagarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_PagarServicioMouseClicked
-        // TODO add your handling code here:
+        controladorServicioPagado.AbrirVistaPagar();
     }//GEN-LAST:event_btn_PagarServicioMouseClicked
 
     private void btn_ServicioPagadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ServicioPagadosMouseClicked

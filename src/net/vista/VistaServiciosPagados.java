@@ -4,6 +4,8 @@
  */
 package net.vista;
 
+import net.controlador.ControladorServicioPagado;
+
 /**
  *
  * @author user

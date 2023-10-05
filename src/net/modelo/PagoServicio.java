@@ -51,6 +51,12 @@ public class PagoServicio implements Serializable {
         this.idPagoServicio = idPagoServicio;
     }
 
+    public PagoServicio(Integer idServicio, Integer idComprobante, Integer idMetodo) {
+        this.idServicio = idServicio;
+        this.idComprobante = idComprobante;
+        this.idMetodo = idMetodo;
+    }
+
     public Integer getIdPagoServicio() {
         return idPagoServicio;
     }
